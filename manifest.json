@@ -1,12 +1,12 @@
 {
   "name": "العد التنازلي للعودة للمدارس",
-  "short_name": "عد تنازلي مدارس",
-  "description": "تطبيق العد التنازلي للعودة للمدارس - اعرف كم يوم متبقي على بداية العام الدراسي الجديد",
+  "short_name": "العد التنازلي",
+  "description": "تطبيق العد التنازلي للعودة للمدارس مع دعم متعدد الدول",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#667eea",
   "theme_color": "#4CAF50",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "scope": "/",
   "lang": "ar",
   "dir": "rtl",
@@ -24,30 +24,13 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["education", "utilities", "productivity"],
+  "categories": ["education", "utilities"],
   "screenshots": [
     {
-      "src": "screenshot-mobile.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow"
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
-  ],
-  "shortcuts": [
-    {
-      "name": "عرض العد التنازلي",
-      "short_name": "العد التنازلي",
-      "description": "عرض العد التنازلي للعودة للمدارس",
-      "url": "/",
-      "icons": [
-        {
-          "src": "icon-192x192.png",
-          "sizes": "192x192"
-        }
-      ]
-    }
-  ],
-  "related_applications": [],
-  "prefer_related_applications": false
+  ]
 }
 
