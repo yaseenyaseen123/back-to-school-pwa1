@@ -51,6 +51,38 @@ main {
     gap: 40px;
 }
 
+/* Country Info */
+.country-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.country-flag {
+    font-size: 2rem;
+    animation: wave 2s ease-in-out infinite;
+}
+
+.country-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
 /* Countdown Container */
 .countdown-container {
     background: rgba(255, 255, 255, 0.95);
