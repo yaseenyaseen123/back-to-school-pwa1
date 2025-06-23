@@ -4,19 +4,23 @@ const schoolDates = {
         date: new Date('2025-09-01T08:00:00+03:00'), // 1 سبتمبر 2025
         name: 'الأردن',
         flag: '🇯🇴',
-        timezone: 'Asia/Amman'
+        timezone: 'Asia/Amman',
+        useHijri: false
     },
     'PS': { // فلسطين
         date: new Date('2025-09-09T08:00:00+03:00'), // 9 سبتمبر 2025
         name: 'فلسطين',
         flag: '🇵🇸',
-        timezone: 'Asia/Gaza'
+        timezone: 'Asia/Gaza',
+        useHijri: false
     },
     'SA': { // السعودية
         date: new Date('2025-08-27T08:00:00+03:00'), // 27 أغسطس 2025
         name: 'السعودية',
         flag: '🇸🇦',
-        timezone: 'Asia/Riyadh'
+        timezone: 'Asia/Riyadh',
+        useHijri: true,
+        hijriDate: '2 صفر 1447 هـ' // التاريخ الهجري المقابل
     }
 };
 
@@ -77,13 +81,19 @@ function updateCountryInfo() {
     }
     
     if (targetDateElement) {
-        const options = { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            timeZone: country.timezone
-        };
-        targetDateElement.textContent = country.date.toLocaleDateString('ar-SA', options);
+        if (country.useHijri) {
+            // استخدام التاريخ الهجري للسعودية
+            targetDateElement.textContent = country.hijriDate;
+        } else {
+            // استخدام التاريخ الميلادي للأردن وفلسطين
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                timeZone: country.timezone
+            };
+            targetDateElement.textContent = country.date.toLocaleDateString('ar-SA', options);
+        }
     }
 }
 
@@ -128,6 +138,78 @@ function startCountdown() {
     countdownInterval = setInterval(updateCountdown, 1000);
 }
 
+// إظهار نافذة تحميل التطبيق
+function showInstallPrompt() {
+    // التحقق من عدم إظهار النافذة من قبل
+    if (localStorage.getItem('installPromptShown')) {
+        return;
+    }
+    
+    // إنشاء النافذة المنبثقة
+    const installModal = document.createElement('div');
+    installModal.className = 'install-modal';
+    installModal.innerHTML = `
+        <div class="install-modal-content">
+            <div class="install-header">
+                <h3>📱 تحميل التطبيق</h3>
+                <button class="close-modal" onclick="closeInstallModal()">&times;</button>
+            </div>
+            <div class="install-body">
+                <div class="install-icon">📲</div>
+                <p>احصل على تجربة أفضل! قم بتثبيت التطبيق على جهازك</p>
+                <div class="install-buttons">
+                    <button class="install-btn" onclick="installApp()">تثبيت التطبيق</button>
+                    <button class="later-btn" onclick="closeInstallModal()">ربما لاحقاً</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(installModal);
+    
+    // إظهار النافذة بعد تأخير قصير
+    setTimeout(() => {
+        installModal.classList.add('show');
+    }, 2000);
+    
+    // تسجيل أن النافذة تم إظهارها
+    localStorage.setItem('installPromptShown', 'true');
+}
+
+// إغلاق نافذة التحميل
+function closeInstallModal() {
+    const modal = document.querySelector('.install-modal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.remove();
+        }, 300);
+    }
+}
+
+// تثبيت التطبيق
+function installApp() {
+    if (window.deferredPrompt) {
+        window.deferredPrompt.prompt();
+        window.deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('تم قبول تثبيت التطبيق');
+            }
+            window.deferredPrompt = null;
+        });
+    } else {
+        // إرشادات التثبيت اليدوي
+        alert('لتثبيت التطبيق:\n\n• على Android: اضغط على القائمة (⋮) ثم "إضافة إلى الشاشة الرئيسية"\n• على iOS: اضغط على زر المشاركة ثم "إضافة إلى الشاشة الرئيسية"');
+    }
+    closeInstallModal();
+}
+
+// معالجة حدث beforeinstallprompt
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    window.deferredPrompt = e;
+});
+
 // تهيئة التطبيق
 async function initApp() {
     // إزالة حالة التحميل
@@ -153,6 +235,9 @@ async function initApp() {
             console.log('فشل في تسجيل Service Worker:', error);
         }
     }
+    
+    // إظهار نافذة تحميل التطبيق
+    showInstallPrompt();
 }
 
 // إظهار الإشعارات
