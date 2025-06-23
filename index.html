@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- شريط غزة -->
+    <div class="gaza-ribbon">
+        <div class="gaza-text">
+            <span class="gaza-flag">🇵🇸</span>
+            <span>حمى الله غزة</span>
+            <span class="gaza-heart">❤️</span>
+        </div>
+    </div>
+    
     <div class="container">
         <header>
             <div class="funny-quote">
@@ -68,6 +77,37 @@
             <p>تم تطويره بـ ❤️ للطلاب والأهالي</p>
             <p class="copyright">جميع الحقوق محفوظة - ياسين ياسين</p>
         </footer>
+    </div>
+    
+    <!-- النافذة المنبثقة لتحميل التطبيق -->
+    <div id="appDownloadModal" class="app-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-modal" id="closeModal">&times;</span>
+                <h2>📱 حمّل التطبيق الآن!</h2>
+            </div>
+            <div class="modal-body">
+                <div class="app-icon">
+                    <img src="icon-192x192.png" alt="أيقونة التطبيق" class="app-icon-img">
+                </div>
+                <h3>العد التنازلي للعودة للمدارس</h3>
+                <p>احصل على التطبيق الكامل مع ميزات إضافية:</p>
+                <ul class="features-list">
+                    <li>✅ إشعارات يومية</li>
+                    <li>✅ عمل بدون إنترنت</li>
+                    <li>✅ تصميم محسّن للهاتف</li>
+                    <li>✅ تحديثات تلقائية</li>
+                </ul>
+                <div class="download-buttons">
+                    <a href="https://www.appcreator24.com/app3625765-78rgth" target="_blank" class="download-btn primary">
+                        📲 تحميل التطبيق
+                    </a>
+                    <button class="download-btn secondary" id="installPWA">
+                        📱 تثبيت كتطبيق ويب
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <script src="app.js"></script>

@@ -138,42 +138,53 @@ function startCountdown() {
     countdownInterval = setInterval(updateCountdown, 1000);
 }
 
-// إظهار نافذة تحميل التطبيق
-function showInstallPrompt() {
+// إظهار نافذة تحميل التطبيق الخارجي
+function showAppDownloadModal() {
     // التحقق من عدم إظهار النافذة من قبل
-    if (localStorage.getItem('installPromptShown')) {
+    if (localStorage.getItem('appDownloadModalShown')) {
         return;
     }
     
-    // إنشاء النافذة المنبثقة
-    const installModal = document.createElement('div');
-    installModal.className = 'install-modal';
-    installModal.innerHTML = `
-        <div class="install-modal-content">
-            <div class="install-header">
-                <h3>📱 تحميل التطبيق</h3>
-                <button class="close-modal" onclick="closeInstallModal()">&times;</button>
-            </div>
-            <div class="install-body">
-                <div class="install-icon">📲</div>
-                <p>احصل على تجربة أفضل! قم بتثبيت التطبيق على جهازك</p>
-                <div class="install-buttons">
-                    <button class="install-btn" onclick="installApp()">تثبيت التطبيق</button>
-                    <button class="later-btn" onclick="closeInstallModal()">ربما لاحقاً</button>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(installModal);
-    
     // إظهار النافذة بعد تأخير قصير
     setTimeout(() => {
-        installModal.classList.add('show');
+        const modal = document.getElementById('appDownloadModal');
+        if (modal) {
+            modal.classList.add('show');
+        }
     }, 2000);
-    
-    // تسجيل أن النافذة تم إظهارها
-    localStorage.setItem('installPromptShown', 'true');
+}
+
+// إغلاق نافذة تحميل التطبيق
+function closeAppDownloadModal() {
+    const modal = document.getElementById('appDownloadModal');
+    if (modal) {
+        modal.classList.remove('show');
+        // حفظ حالة الإغلاق
+        localStorage.setItem('appDownloadModalShown', 'true');
+    }
+}
+
+// تثبيت التطبيق كـ PWA
+function installPWA() {
+    if (window.deferredPrompt) {
+        window.deferredPrompt.prompt();
+        window.deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('تم قبول تثبيت التطبيق');
+                closeAppDownloadModal();
+            }
+            window.deferredPrompt = null;
+        });
+    } else {
+        // إرشادات التثبيت اليدوي
+        alert('لتثبيت التطبيق:\n\n• على Android: اضغط على القائمة (⋮) ثم "إضافة إلى الشاشة الرئيسية"\n• على iOS: اضغط على زر المشاركة ثم "إضافة إلى الشاشة الرئيسية"');
+        closeAppDownloadModal();
+    }
+}
+
+// تسجيل أن النافذة تم إظهارها
+function markAppPromptShown() {
+    localStorage.setItem('externalAppPromptShown', 'true');
 }
 
 // إغلاق نافذة التحميل
@@ -243,7 +254,7 @@ async function initApp() {
     }
     
     // إظهار نافذة تحميل التطبيق
-    showInstallPrompt();
+    showAppDownloadModal();
 }
 
 // إظهار الإشعارات
@@ -339,5 +350,31 @@ window.addEventListener("online", () => {
 
 window.addEventListener("offline", () => {
     console.log("تم فقدان الاتصال بالإنترنت");
+});
+
+
+// إضافة event listeners للنافذة المنبثقة
+document.addEventListener('DOMContentLoaded', function() {
+    // زر إغلاق النافذة المنبثقة
+    const closeModal = document.getElementById('closeModal');
+    if (closeModal) {
+        closeModal.addEventListener('click', closeAppDownloadModal);
+    }
+    
+    // زر تثبيت PWA
+    const installPWABtn = document.getElementById('installPWA');
+    if (installPWABtn) {
+        installPWABtn.addEventListener('click', installPWA);
+    }
+    
+    // إغلاق النافذة عند النقر خارجها
+    const modal = document.getElementById('appDownloadModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeAppDownloadModal();
+            }
+        });
+    }
 });
 
