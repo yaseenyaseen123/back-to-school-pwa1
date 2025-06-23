@@ -890,12 +890,12 @@ footer p {
 
 .modal-content {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 25px;
-    max-width: 450px;
-    width: 90%;
-    max-height: 90vh;
+    border-radius: 20px;
+    max-width: 380px;
+    width: 85%;
+    max-height: 85vh;
     overflow-y: auto;
-    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     transform: scale(0.8) translateY(50px);
     transition: all 0.4s ease;
     color: white;
@@ -907,7 +907,7 @@ footer p {
 }
 
 .modal-header {
-    padding: 25px;
+    padding: 20px;
     text-align: center;
     position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -916,7 +916,7 @@ footer p {
 
 .modal-header h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     animation: glow 2s ease-in-out infinite alternate;
@@ -952,19 +952,22 @@ footer p {
 }
 
 .modal-body {
-    padding: 30px 25px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
     text-align: center;
 }
 
 .app-icon-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     animation: float 3s ease-in-out infinite;
+    object-fit: cover;
+    max-width: 60px;
+    max-height: 60px;
 }
 
 @keyframes float {
@@ -974,7 +977,7 @@ footer p {
 
 .modal-body h3 {
     margin: 0;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -982,7 +985,7 @@ footer p {
 
 .modal-body p {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     opacity: 0.9;
     line-height: 1.5;
 }
