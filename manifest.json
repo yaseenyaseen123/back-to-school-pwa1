@@ -1,36 +1,6 @@
 {
-  "name": "العد التنازلي للعودة للمدارس",
-  "short_name": "العد التنازلي",
-  "description": "تطبيق العد التنازلي للعودة للمدارس مع دعم متعدد الدول",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#667eea",
-  "theme_color": "#4CAF50",
-  "orientation": "portrait",
-  "scope": "/",
-  "lang": "ar",
-  "dir": "rtl",
-  "icons": [
-    {
-      "src": "icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "categories": ["education", "utilities"],
-  "screenshots": [
-    {
-      "src": "icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  "name": "العد التنازلي للعوده للمدارس",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "short_name": "العد التنازلي"
 }
-
