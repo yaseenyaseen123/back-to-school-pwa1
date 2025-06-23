@@ -221,6 +221,12 @@ async function initApp() {
     // بدء العد التنازلي
     startCountdown();
     
+    // جدولة الإشعارات اليومية
+    scheduleDailyNotification();
+    
+    // جدولة الإشعارات كل ساعة
+    scheduleHourlyNotifications();
+    
     // طلب إذن الإشعارات
     if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission();
@@ -324,12 +330,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // تأخير قصير لإظهار تأثير التحميل
     setTimeout(initApp, 500);
-    
-    // جدولة الإشعارات اليومية
-    scheduleDailyNotification();
-    
-    // جدولة الإشعارات كل ساعة
-    scheduleHourlyNotifications();
 });
 
 // معالجة تغيير حالة الاتصال
