@@ -176,6 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // جدولة الإشعارات اليومية
     scheduleDailyNotification();
+    
+
 });
 
 // معالجة تغيير حالة الاتصال
@@ -186,4 +188,36 @@ window.addEventListener("online", () => {
 window.addEventListener("offline", () => {
     console.log("تم فقدان الاتصال بالإنترنت - التطبيق يعمل في وضع عدم الاتصال");
 });
+
+
+
+// إشعار يومي (اختياري)
+function scheduleDailyNotification() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(9, 0, 0, 0); // 9 صباحًا
+    
+    const timeUntilTomorrow = tomorrow.getTime() - now.getTime();
+    
+    setTimeout(() => {
+        const distance = targetDate - new Date().getTime();
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        
+        if (days > 0) {
+            showNotification(`متبقي ${days} يوم على بداية العام الدراسي! 📚`);
+        }
+        
+        // جدولة الإشعار التالي
+        setInterval(() => {
+            const distance = targetDate - new Date().getTime();
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            
+            if (days > 0) {
+                showNotification(`متبقي ${days} يوم على بداية العام الدراسي! 📚`);
+            }
+        }, 24 * 60 * 60 * 1000); // كل 24 ساعة
+        
+    }, timeUntilTomorrow);
+}
 
